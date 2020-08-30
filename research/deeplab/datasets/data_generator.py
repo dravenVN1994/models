@@ -356,5 +356,5 @@ class Dataset(object):
     """
     file_pattern = _FILE_PATTERN
     file_pattern = os.path.join(self.dataset_dir,
-                                file_pattern % self.split_name)
+                                self.split_name, '*.tfrecord')
     return tf.gfile.Glob(file_pattern)
