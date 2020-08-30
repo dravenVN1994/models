@@ -26,6 +26,7 @@ import sys
 import build_data
 from tqdm import tqdm
 from glob import glob
+import cv2
 import tensorflow as tf
 
 FLAGS = tf.app.flags.FLAGS
@@ -117,6 +118,10 @@ def _convert_dataset():
                 height, width = image_reader.read_image_dims(image_data)
                 # Read the semantic segmentation annotation.
                 seg_filename = seg_names[i]
+                img = cv2.imread(seg_filename, cv2.IMREAD_UNCHANGE)
+                img[img > 0] = 1
+                cv2.imwrite(seg_filename, img)
+                
                 seg_data = tf.gfile.FastGFile(seg_filename, "rb").read()
                 seg_height, seg_width = label_reader.read_image_dims(seg_data)
                 if height != seg_height or width != seg_width:
