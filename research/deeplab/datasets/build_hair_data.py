@@ -118,7 +118,7 @@ def _convert_dataset():
                 height, width = image_reader.read_image_dims(image_data)
                 # Read the semantic segmentation annotation.
                 seg_filename = seg_names[i]
-                img = cv2.imread(seg_filename, cv2.IMREAD_UNCHANGE)
+                img = cv2.imread(seg_filename, cv2.IMREAD_UNCHANGED)
                 img[img > 0] = 1
                 cv2.imwrite(seg_filename, img)
                 
