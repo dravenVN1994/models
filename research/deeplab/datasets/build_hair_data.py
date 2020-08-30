@@ -32,31 +32,31 @@ FLAGS = tf.app.flags.FLAGS
 
 tf.app.flags.DEFINE_string(
     "image_folder",
-    r"E:\JupyterNotebook\dataset\hair\CelebAMask-HQ\CelebA-HQ-img",
+    "/content/CelebAMask-HQ/CelebA-HQ-img",
     "Folder containing images",
 )
 
 tf.app.flags.DEFINE_string(
     "label_folder",
-    r"E:\JupyterNotebook\dataset\hair\CelebAMask-HQ\CelebAMask-HQ-mask-anno",
+    "/content/CelebAMask-HQ/CelebAMask-HQ-mask-anno",
     "Folder containing annotations for images",
 )
 
 tf.app.flags.DEFINE_string(
     "data_split_folder",
-    r"E:\JupyterNotebook\dataset\hair\CelebAMask-HQ\CelebA-HQ-hair",
+    "/content/splits",
     "Path to folder containing data split files(train.txt, val.txt, test.txt",
 )
 
 tf.app.flags.DEFINE_string(
     "no_hair_file",
-    r"E:\JupyterNotebook\dataset\hair\CelebAMask-HQ\CelebAMask-HQ-mask-anno\no_hair.png",
+    "/content/no_hair.png",
     "Path to no hair image file",
 )
 
 tf.app.flags.DEFINE_string(
     "output_dir",
-    r"E:\JupyterNotebook\dataset\hair\CelebAMask-HQ\tfrecord",
+    "/content/dataset",
     "Path to save converted tfrecord of Tensorflow example",
 )
 
@@ -68,6 +68,7 @@ def _convert_dataset():
       RuntimeError: If loaded image and label have different shape.
     """
 
+    img_names = []
     data_split_files = tf.gfile.Glob(os.path.join(FLAGS.data_split_folder, "*.txt"))
     anno_paths = glob(os.path.join(FLAGS.label_folder, "**/*_hair.png"))
     anno_files = [os.path.basename(f) for f in anno_paths]
@@ -77,8 +78,7 @@ def _convert_dataset():
             split_files = f.read().splitlines()
         data_output_dir = os.path.splitext(os.path.basename(data_split_file))[0]
         os.makedirs(os.path.join(FLAGS.output_dir, data_output_dir), exist_ok=True)
-        
-        img_names = []
+
         seg_names = []
         num_no_hair = 0
         for f in split_files:
