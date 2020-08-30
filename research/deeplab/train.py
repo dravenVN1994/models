@@ -308,7 +308,6 @@ def main(unused_argv):
           is_training=True,
           should_shuffle=True,
           should_repeat=True)
-      print("Train: {} examples".format(len(dataset)))
     # Create the global step on the device storing the variables.
     with tf.device(config.variables_device()):
       global_step = tf.train.get_or_create_global_step()

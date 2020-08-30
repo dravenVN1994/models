@@ -354,7 +354,6 @@ class Dataset(object):
     Returns:
       A list of input files.
     """
-    file_pattern = _FILE_PATTERN
     file_pattern = os.path.join(self.dataset_dir,
                                 self.split_name, '*.tfrecord')
     return tf.gfile.Glob(file_pattern)
