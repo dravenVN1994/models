@@ -64,7 +64,8 @@ class ImageReader(object):
       self._image_format = image_format
       self._session = tf.Session()
       if self._image_format in ('jpeg', 'jpg'):
-        self._decode = tf.image.decode_jpeg(self._decode_data,
+
+        self._decode = tf.image.decode_jpeg(self._decode_data, ratio=2,
                                             channels=channels)
       elif self._image_format == 'png':
         self._decode = tf.image.decode_png(self._decode_data,
