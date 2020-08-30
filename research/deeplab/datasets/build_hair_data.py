@@ -68,7 +68,6 @@ def _convert_dataset():
       RuntimeError: If loaded image and label have different shape.
     """
 
-    img_names = []
     data_split_files = tf.gfile.Glob(os.path.join(FLAGS.data_split_folder, "*.txt"))
     anno_paths = glob(os.path.join(FLAGS.label_folder, "**/*_hair.png"))
     anno_files = [os.path.basename(f) for f in anno_paths]
@@ -78,7 +77,8 @@ def _convert_dataset():
             split_files = f.read().splitlines()
         data_output_dir = os.path.splitext(os.path.basename(data_split_file))[0]
         os.makedirs(os.path.join(FLAGS.output_dir, data_output_dir), exist_ok=True)
-
+        
+        img_names = []
         seg_names = []
         num_no_hair = 0
         for f in split_files:
