@@ -268,7 +268,7 @@ def main(unused_argv):
       resized_shape = tf.to_int32([tf.squeeze(samples[common.HEIGHT]),
                                    tf.squeeze(samples[common.WIDTH])])
       predictions = tf.squeeze(
-          tf.image.resize_images(tf.expand_dims(predictions, 3),
+          tf.image.resize(tf.expand_dims(predictions, 3),
                                  resized_shape,
                                  method=tf.image.ResizeMethod.NEAREST_NEIGHBOR,
                                  align_corners=True), 3)
